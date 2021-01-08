@@ -25,8 +25,6 @@ def frontend():
     req_body = request.get_json()
     req_type = request.method
     db = Database('test.db')
-    if req_body == None:
-        return jsonify({"status_code": 404})
     result = frontend_handler(req_body, req_type, db)
     del db
     return jsonify(result)
