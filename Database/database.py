@@ -34,7 +34,7 @@ class Database(object):
         return self.__execute(f"SELECT * from {self.table_name}")
 
     def get(self, serial_no: int):
-        """Get the relavant information in the database"""
+        """Get the relevant information in the database"""
         return self.__execute(f'SELECT * from {self.table_name} WHERE serial_no = ?', serial_no)
 
     def insert(self, serial_no: int, name: str, location: str, count: int = 1):

@@ -58,7 +58,7 @@ handler_dict = {
     'get': __handle_frontend_get,
     'put': __handle_frontend_put,
     'delete': __handle_frontend_delete,
-    'invalid': __invalid_frontend_method
+    'invalid': __invalid_frontend_method,
 }
 
 
