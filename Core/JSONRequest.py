@@ -17,3 +17,19 @@ class JSONRequest(object):
     def get_type(self):
         """Get the type of item"""
         return self.get('type')
+
+    def get_serial_no(self):
+        """Get the serial number in the json"""
+        return self.get('serial_no')
+
+    def get_location(self):
+        """Get the location of the item"""
+        return self.get('location')
+
+    def get_name(self):
+        """Get the name of the location"""
+        return self.get('name')
+
+    def get_count(self):
+        """Get the count of the item"""
+        return self.get('count')
