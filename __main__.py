@@ -36,7 +36,7 @@ def iot():
     """The endpoint for the frontend application to interact with"""
 
     # Get the body and the request type
-    req_body = json.loads(request.get_json())
+    req_body = request.get_json()
     req_type = request.method.lower()
 
     db = Database('test.db')
