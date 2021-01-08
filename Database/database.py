@@ -31,7 +31,7 @@ class Database(object):
 
     def get_all(self):
         """Get all the items inside the table"""
-        return self.__execute(f"SELECT * from {self.table_name}")
+        return tuple(self.__execute(f"SELECT * from {self.table_name}"))
 
     def get(self, serial_no: int):
         """Get the relevant information in the database"""
@@ -52,7 +52,7 @@ class Database(object):
     def search(self, keyword: str):
         """Search for the items in the database with the following keyword as name"""
         items = self.get_all()
-        return list(filter(lambda x: keyword in x[1], items))
+        return tuple(filter(lambda x: keyword in x[1], items))
 
     def commit(self):
         """Commit the changes to the database"""
