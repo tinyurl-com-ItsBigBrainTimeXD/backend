@@ -1,6 +1,5 @@
 from Database.database import Database
 from Core.ResponseBuilder import ResponseBuilder
-from Core.helpers import is_blank
 
 
 def handle_post(serial_no: str, name: str, location: str, count: int, db: Database) -> dict:

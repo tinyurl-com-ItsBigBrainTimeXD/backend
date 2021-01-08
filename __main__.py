@@ -7,6 +7,8 @@ from handler.iotHandler import iot_handler
 
 # Create the flask application
 app = Flask(__name__)
+db_name = 'test1.db'
+
 
 # Create a basic route for debugging
 @app.route('/')
@@ -24,7 +26,7 @@ def frontend():
     # Get the body and the request type
     req_body = request.get_json()
     req_type = request.method
-    db = Database('test.db')
+    db = Database(db_name)
     result = frontend_handler(req_body, req_type, db)
     del db
     return jsonify(result)
@@ -39,10 +41,10 @@ def iot():
     req_body = request.get_json()
     req_type = request.method.lower()
 
-    db = Database('test.db')
+    db = Database(db_name)
     result = iot_handler(req_body, req_type, db)
     del db
-    return result
+    return jsonify(result)
     
 
 if __name__ == "__main__":

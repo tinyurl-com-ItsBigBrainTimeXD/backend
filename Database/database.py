@@ -20,9 +20,9 @@ class Database(object):
         """Initialise the table for the database if it does not exist"""
 
         # Execute the query to create a table if it does not exist
-        self.__execute(f'''CREATE TABLE IF NOT EXISTS {self.table_name} (serial_no INTEGER, name TEXT, count INTEGER, location TEXT)''')
+        self.__execute(f'''CREATE TABLE IF NOT EXISTS {self.table_name} (serial_no TEXT, name TEXT, count INTEGER, location TEXT)''')
 
-    def __execute(self, sql_query: str, *args):
+    def __execute(self, sql_query: str, *args) -> list:
         """Execute the SQL_query"""
 
         # Execute the query
@@ -33,19 +33,19 @@ class Database(object):
         """Get all the items inside the table"""
         return tuple(self.__execute(f"SELECT * from {self.table_name}"))
 
-    def get(self, serial_no: int):
+    def get(self, serial_no: str):
         """Get the relevant information in the database"""
         return self.__execute(f'SELECT * from {self.table_name} WHERE serial_no = ?', serial_no)
 
-    def insert(self, serial_no: int, name: str, location: str, count: int = 1):
+    def insert(self, serial_no: str, name: str, location: str, count: int = 1):
         """Insert the item into the database"""
         return self.__execute(f"INSERT into {self.table_name}(serial_no, name, count, location) VALUES(?, ?, ?, ?) ", serial_no, name, count, location)
 
-    def delete(self, serial_no: int):
+    def delete(self, serial_no: str):
         """Remove the item in the database based on the id that is provided"""
         return self.__execute(f'DELETE from {self.table_name} where serial_no = ?', serial_no)
 
-    def update(self, serial_no: int, name: str, count: int, location: str):
+    def update(self, serial_no: str, name: str, count: int, location: str):
         """Update the item that is provided"""
         return self.__execute(f'UPDATE {self.table_name} SET name = ?, count = ?, location = ? WHERE serial_no = ?', name, count, location, serial_no)
 
