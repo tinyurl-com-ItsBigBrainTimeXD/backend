@@ -1,5 +1,4 @@
-import json
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from constants import HOST, PORT
 from Database.database import Database
 from handler.frontendHandler import frontend_handler
@@ -26,9 +25,11 @@ def frontend():
     req_body = request.get_json()
     req_type = request.method
     db = Database('test.db')
+    if req_body == None:
+        return jsonify({"status_code": 404})
     result = frontend_handler(req_body, req_type, db)
     del db
-    return json.dumps(result)
+    return jsonify(result)
 
 
 # REST for IoT
@@ -38,7 +39,7 @@ def iot():
 
     # Get the body and the request type
     req_body = json.loads(request.get_json())
-    req_type = request.method
+    req_type = request.method.lower()
 
     db = Database('test.db')
     result = iot_handler(req_body, req_type, db)

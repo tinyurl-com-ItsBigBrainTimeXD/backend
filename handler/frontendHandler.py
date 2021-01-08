@@ -5,6 +5,7 @@ from Core.ResponseBuilder import ResponseBuilder
 from handler.frontend_helper.get_helper import get_dict
 from handler.frontend_helper.post_helper import handle_post
 from handler.frontend_helper.put_helper import handle_put
+from handler.frontend_helper.delete_helper import handle_delete
 
 
 # Set up logging
@@ -66,14 +67,14 @@ def __handle_frontend_put(req_body: JSONRequest, db: Database):
 def __handle_frontend_delete(req_body: JSONRequest, db: Database):
     """Handle delete requests from the front end"""
     log.info(f"Delete request received data: {req_body}")
-    # Delete is disabled
-    return __invalid_frontend_method(req_body, db)
+    serial_no = req_body.get_serial_no()
+    return handle_delete(serial_no, db)
 
 
 def __invalid_frontend_method(req_body: JSONRequest, db: Database):
     """Invalid request method"""
     log.info(f"Invalid request method received data: {req_body}")
-    return f"""<h1> Invalid request</h1><br><p>{req_body}</p>"""
+    return f"""<h1>Invalid request</h1><br><p>{req_body}</p>"""
 
 
 handler_dict = {
