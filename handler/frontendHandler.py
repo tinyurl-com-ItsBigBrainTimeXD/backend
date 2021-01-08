@@ -12,6 +12,22 @@ def __handle_frontend_get(req_body: JSONRequest, db: Database):
     """Handle get requests from the frontend"""
     log.info(f"Get request received data: {req_body}")
 
+    # Get the type of get request
+    req_type: int = req_body.get('type')
+
+    # Get the handler
+    handler = get_dict[req_type]
+
+    # Execute the handler
+    try:
+        result = handler(req_body.get('key'), db)
+        log.info(f"Sending data: {result}")
+        return result
+    except KeyError as e:
+        log.critical(f"Get request error {e}")
+        return 500
+
+
 def __handle_frontend_post(req_body: JSONRequest, db: Database):
     """Handle post requests from the frontend"""
     log.info(f"Post request received data: {req_body}")
