@@ -12,9 +12,10 @@ def generate_number() -> str:
     return base64.b64encode(no.digest()).decode()
 
 
-def is_blank(string: str):
+def is_blank(*string: str):
     """Checks if the string is blank"""
-    return (string is None) or (len(string) == 0)
+    print(string)
+    return not all(string)
 
 
 def is_blank_with_default(string: str, default: str):
