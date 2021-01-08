@@ -1,6 +1,7 @@
 from flask import Flask, request
 from constants import HOST, PORT
 from handler.frontendHandler import frontend_handler
+from handler.iotHandler import iotHandler
 
 
 # Create the flask application
@@ -16,7 +17,7 @@ def index():
     return '<h1>Hello world</h1>'
 
 # REST for frontend
-@app.route('/frontend')
+@app.route('/frontend', methods=['POST', 'GET', 'PUT', 'DELETE'])
 def frontend():
     """The endpoint for the frontend application to interact with"""
 
