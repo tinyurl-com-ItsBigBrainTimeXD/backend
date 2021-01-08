@@ -20,13 +20,3 @@ def is_blank(string: str):
 def is_blank_with_default(string: str, default: str):
     """Returns string if it is not blank otherwise return default value"""
     return default if is_blank(string) else string
-
-
-def get_message(req_body: dict):
-    """Get the message from the request body"""
-
-    # Get the message from the req body
-    message = req_body.get('message', "")
-
-    # Returns the message if it is not blank otherwise return blank
-    return is_blank_with_default(message, "")
