@@ -14,7 +14,7 @@ def generate_number() -> str:
 
 def is_blank(string: str):
     """Checks if the string is blank"""
-    return (string is not None) and (len(string) > 0)
+    return (string is None) or (len(string) == 0)
 
 
 def is_blank_with_default(string: str, default: str):
