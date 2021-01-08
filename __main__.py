@@ -34,13 +34,17 @@ def frontend():
     return frontend_handler(req_body, req_type, db)
 
 
+# REST for IoT
+@app.route('/device', methods=['POST', 'GET', 'PUT', 'DELETE'])
+def iot():
+    """The endpoint for the frontend application to interact with"""
+
     # Get the body and the request type
-    req_body = request.get_json()
+    req_body = json.loads(request.get_json())
     req_type = request.method
 
-    return frontend_handler(req_body, req_type)
+    return iot_handler(req_body, req_type, db)
     
-
 
 if __name__ == "__main__":
     app.run(HOST, PORT)
