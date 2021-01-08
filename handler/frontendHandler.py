@@ -1,11 +1,13 @@
 import logging
 from Database.database import Database
 from Core.JSONRequest import JSONRequest
+from Core.ResponseBuilder import ResponseBuilder
 from handler.frontend_helper.get_helper import get_dict
 
 
 # Set up logging
 log = logging.getLogger(__name__)
+logging.root.setLevel(logging.INFO)
 
 
 def __handle_frontend_get(req_body: JSONRequest, db: Database):
@@ -13,19 +15,24 @@ def __handle_frontend_get(req_body: JSONRequest, db: Database):
     log.info(f"Get request received data: {req_body}")
 
     # Get the type of get request
-    req_type: int = req_body.get('type')
+    req_type: int = req_body.get_type()
 
     # Get the handler
     handler = get_dict[req_type]
 
+    # Initialise the result
+    result = None
+
     # Execute the handler
     try:
-        result = handler(req_body.get('key'), db)
+        result = handler(req_body.get_key(), db)
         log.info(f"Sending data: {result}")
-        return result
+        status_code = 200
     except KeyError as e:
         log.critical(f"Get request error {e}")
-        return 500
+        status_code = 500
+
+    return ResponseBuilder(status_code, result).get_response()
 
 
 def __handle_frontend_post(req_body: JSONRequest, db: Database):
@@ -44,7 +51,7 @@ def __handle_frontend_delete(req_body: JSONRequest, db: Database):
     """Handle delete requests from the front end"""
     log.info(f"Delete request received data: {req_body}")
     # Delete is disabled
-    return __invalid_frontend_method(req_body)
+    return __invalid_frontend_method(req_body, db)
 
 
 def __invalid_frontend_method(req_body: JSONRequest, db: Database):
