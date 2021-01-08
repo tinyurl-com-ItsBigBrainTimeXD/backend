@@ -4,6 +4,7 @@ from Core.JSONRequest import JSONRequest
 from Core.ResponseBuilder import ResponseBuilder
 from handler.frontend_helper.get_helper import get_dict
 from handler.frontend_helper.post_helper import handle_post
+from handler.frontend_helper.put_helper import handle_put
 
 
 # Set up logging
@@ -39,6 +40,7 @@ def __handle_frontend_get(req_body: JSONRequest, db: Database):
 def __handle_frontend_post(req_body: JSONRequest, db: Database):
     """Handle post requests from the frontend"""
     log.info(f"Post request received data: {req_body}")
+
     # Get the variables
     serial_no = req_body.get_serial_no()
     name = req_body.get_name()
@@ -46,13 +48,19 @@ def __handle_frontend_post(req_body: JSONRequest, db: Database):
     count = req_body.get_count()
 
     return handle_post(serial_no, name, location, count, db)
-    
 
 
 def __handle_frontend_put(req_body: JSONRequest, db: Database):
     """Handle put request from the frontend"""
     log.info(f"Put request received data: {req_body}")
-    return f"PUT: {req_body}"
+
+    # Get the variables
+    serial_no = req_body.get_serial_no()
+    name = req_body.get_name()
+    location = req_body.get_location()
+    count = req_body.get_count()
+
+    return handle_put(serial_no, name, location, count, db)
     
 
 def __handle_frontend_delete(req_body: JSONRequest, db: Database):
