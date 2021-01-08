@@ -22,8 +22,6 @@ def index():
 @app.route('/frontend', methods=['POST', 'GET', 'PUT', 'DELETE'])
 def frontend():
     """The endpoint for the frontend application to interact with"""
-
-    print(request.get_json())
     # Get the body and the request type
     req_body = request.get_json()
     req_type = request.method
