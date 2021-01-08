@@ -9,3 +9,11 @@ class JSONRequest(object):
             returns None if the parameter is not found
         """
         return self.req_body.get(param, None)
+
+    def get_key(self):
+        """Get the key"""
+        return self.get('key')
+
+    def get_type(self):
+        """Get the type of item"""
+        return self.get('type')
