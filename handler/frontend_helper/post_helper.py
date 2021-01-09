@@ -21,7 +21,7 @@ def handle_post(serial_no: str, name: str, location: str, count: int, db: Databa
             db.insert(serial_no, name, location, count)
             status_code = 200
             
-    except Exception as e:
+    except Exception:
         status_code = 500
 
     return ResponseBuilder(status_code).get_response()
@@ -29,4 +29,4 @@ def handle_post(serial_no: str, name: str, location: str, count: int, db: Databa
 def handle_iot_post(buzzer: bool, lock: bool):
     device.toggle_lock()
     device.toggle_buzzer()
-    return ResponseBuilder(200, device.get_dict())
+    return ResponseBuilder(200, device.get_dict()).get_response()
