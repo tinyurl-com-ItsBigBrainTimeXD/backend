@@ -20,6 +20,7 @@ def handle_post(serial_no: str, name: str, location: str, count: int, db: Databa
         else:
             db.insert(serial_no, name, location, count)
             status_code = 200
+            
     except Exception as e:
         status_code = 500
 
