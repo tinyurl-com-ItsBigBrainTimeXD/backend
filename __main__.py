@@ -31,7 +31,6 @@ def front_end_get(query):
     req_body = {'type': int(query)}
     req_type = request.method
     req_body.update(request.args)
-    print(req_body)
     db_lock.acquire(True)
     db = Database(db_name)
     result = frontend_handler(req_body, req_type, db)
@@ -54,20 +53,22 @@ def frontend():
     return jsonify(result)
 
 
+@app.route('/device/<query>', methods = ['GET'])
+def iot_get(query):
+    req_body = {'type': query}
+    req_type = request.method.lower()
+    result = iot_handler(req_body, req_type)
+    return jsonify(result)
+
 # REST for IoT
-@app.route('/device', methods=['POST', 'GET', 'PUT', 'DELETE'])
+@app.route('/device', methods=['POST'])
 def iot():
     """The endpoint for the frontend application to interact with"""
 
     # Get the body and the request type
     req_body = request.get_json()
     req_type = request.method.lower()
-
-    db_lock.acquire(True)
-    db = Database(db_name)
-    result = iot_handler(req_body, req_type, db)
-    del db
-    db_lock.release()
+    result = iot_handler(req_body, req_type)
     return jsonify(result)
 
 

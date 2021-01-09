@@ -3,7 +3,7 @@ from Database.database import Database
 from Core.JSONRequest import JSONRequest
 from Core.ResponseBuilder import ResponseBuilder
 from handler.frontend_helper.get_helper import get_dict
-from handler.frontend_helper.post_helper import handle_post, handle_img_post
+from handler.frontend_helper.post_helper import handle_post, handle_img_post, handle_iot_post
 from handler.frontend_helper.put_helper import handle_put
 from handler.frontend_helper.delete_helper import handle_delete
 
@@ -58,6 +58,12 @@ def __handle_frontend_post(req_body: JSONRequest, db: Database):
         count = req_body.get_count()
 
         return handle_post(serial_no, name, location, count, db)
+
+    if typ == 3:
+        lock = req_body.get('lock')
+        buzzer = req_body.get('buzze')
+
+        return handle_iot_post(buzzer, lock)
 
 
 def __handle_frontend_put(req_body: JSONRequest, db: Database):

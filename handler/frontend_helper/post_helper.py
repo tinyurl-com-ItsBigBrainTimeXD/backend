@@ -1,7 +1,5 @@
-import cv2
 import base64
-import matplotlib.pyplot as plt
-import numpy as np
+from constants import device
 from Database.database import Database
 from Core.ResponseBuilder import ResponseBuilder
 
@@ -11,7 +9,6 @@ def handle_img_post(image_b64: str) -> dict:
     img_data = base64.b64decode(image_b64)
     with open('temp.jpg', 'wb') as file:
         file.write(img_data)
-
     return ResponseBuilder(200, 'bottle').get_response()
     
 
@@ -27,3 +24,7 @@ def handle_post(serial_no: str, name: str, location: str, count: int, db: Databa
         status_code = 500
 
     return ResponseBuilder(status_code).get_response()
+
+def handle_iot_post(buzzer: bool, lock: bool):
+    device.toggle_lock()
+    device.toggle_buzzer()
