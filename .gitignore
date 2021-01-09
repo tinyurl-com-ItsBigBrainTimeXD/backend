@@ -134,3 +134,4 @@ dmypy.json
 # Databases
 *.db
 temp.png
+temp.jpg

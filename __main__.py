@@ -53,24 +53,11 @@ def frontend():
     return jsonify(result)
 
 
-@app.route('/device/<query>', methods = ['GET'])
-def iot_get(query):
-    req_body = {'type': query}
+@app.route('/device', methods = ['GET'])
+def iot_get():
     req_type = request.method.lower()
-    result = iot_handler(req_body, req_type)
+    result = iot_handler(req_type)
     return jsonify(result)
-
-# REST for IoT
-@app.route('/device', methods=['POST'])
-def iot():
-    """The endpoint for the frontend application to interact with"""
-
-    # Get the body and the request type
-    req_body = request.get_json()
-    req_type = request.method.lower()
-    result = iot_handler(req_body, req_type)
-    return jsonify(result)
-
 
 if __name__ == "__main__":
     app.run(HOST, PORT)
