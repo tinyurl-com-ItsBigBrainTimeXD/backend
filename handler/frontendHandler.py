@@ -61,7 +61,7 @@ def __handle_frontend_post(req_body: JSONRequest, db: Database):
 
     if typ == 3:
         lock = req_body.get('lock')
-        buzzer = req_body.get('buzze')
+        buzzer = req_body.get('buzzer')
 
         return handle_iot_post(buzzer, lock)
 

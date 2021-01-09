@@ -27,6 +27,6 @@ def handle_post(serial_no: str, name: str, location: str, count: int, db: Databa
     return ResponseBuilder(status_code).get_response()
 
 def handle_iot_post(buzzer: bool, lock: bool):
-    device.toggle_lock()
-    device.toggle_buzzer()
+    device.buzzer = buzzer
+    device.lock = lock
     return ResponseBuilder(200, device.get_dict()).get_response()
