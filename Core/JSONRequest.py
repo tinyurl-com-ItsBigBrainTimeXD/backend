@@ -33,3 +33,7 @@ class JSONRequest(object):
     def get_count(self):
         """Get the count of the item"""
         return self.get('count')
+
+    def get_image(self):
+        """Get the image from the object"""
+        return self.get('image')

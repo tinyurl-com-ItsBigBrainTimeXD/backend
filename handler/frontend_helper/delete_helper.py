@@ -4,8 +4,6 @@ from Core.ResponseBuilder import ResponseBuilder
 
 def handle_delete(serial_no: str, db: Database):
     """Handle the data"""
-
-    print(serial_no)
     if not db.get(serial_no):
         status_code = 404
     else:

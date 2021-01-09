@@ -1,6 +1,19 @@
+import cv2
+import base64
+import matplotlib.pyplot as plt
+import numpy as np
 from Database.database import Database
 from Core.ResponseBuilder import ResponseBuilder
 
+
+def handle_img_post(image_b64: str) -> dict:
+    """Handle the img recognition for the item"""
+    img_data = base64.b64decode(image_b64)
+    with open('temp.jpg', 'wb') as file:
+        file.write(img_data)
+
+    return ResponseBuilder(200, 'bottle').get_response()
+    
 
 def handle_post(serial_no: str, name: str, location: str, count: int, db: Database) -> dict:
     """Handle the insertion of new data"""

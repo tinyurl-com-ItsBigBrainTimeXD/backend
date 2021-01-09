@@ -3,9 +3,10 @@ from Database.database import Database
 from Core.JSONRequest import JSONRequest
 from Core.ResponseBuilder import ResponseBuilder
 from handler.frontend_helper.get_helper import get_dict
-from handler.frontend_helper.post_helper import handle_post
+from handler.frontend_helper.post_helper import handle_post, handle_img_post
 from handler.frontend_helper.put_helper import handle_put
 from handler.frontend_helper.delete_helper import handle_delete
+
 
 
 # Set up logging
@@ -42,13 +43,21 @@ def __handle_frontend_post(req_body: JSONRequest, db: Database):
     """Handle post requests from the frontend"""
     log.info(f"Post request received data: {req_body}")
 
-    # Get the variables
-    serial_no = req_body.get_serial_no()
-    name = req_body.get_name()
-    location = req_body.get_location()
-    count = req_body.get_count()
+    # Get type 
+    typ = req_body.get_type()
 
-    return handle_post(serial_no, name, location, count, db)
+    if typ == 1:
+        img = req_body.get_image()
+        return handle_img_post(img)
+
+    if typ == 2:
+        # Get the variables
+        serial_no = req_body.get_serial_no()
+        name = req_body.get_name()
+        location = req_body.get_location()
+        count = req_body.get_count()
+
+        return handle_post(serial_no, name, location, count, db)
 
 
 def __handle_frontend_put(req_body: JSONRequest, db: Database):
@@ -97,3 +106,4 @@ def frontend_handler(req_body: dict, req_type: str, db: Database):
 
     # Execute the handler
     return handler(json_class, db)
+

@@ -4,7 +4,7 @@ from Core.helpers import generate_number, is_blank
 
 def search_handle(keyword: str, db: Database):
     """Handle the searching of data"""
-    if is_blank(keyword):
+    if keyword is None or len(keyword) == 0:
         raise KeyError('There is no keyword')
     return db.search(keyword)
 
